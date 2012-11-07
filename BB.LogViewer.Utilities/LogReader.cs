@@ -31,7 +31,7 @@ namespace BB.LogViewer.Utilities
                 .Where(logEntry => null == logEntryTypes || logEntryTypes.Contains(logEntry.EntryType))
                 .OrderBy(logEntry => logEntry.TimeGenerated);
 
-            lastGeneratedDT = DateTime.UtcNow;
+            lastGeneratedDT = logs.Select(logEntry => logEntry.TimeGenerated).DefaultIfEmpty(minValue).Max();
 
             return logs;
         }
